@@ -15,12 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\ResourcePool.h">
+    <ClInclude Include="..\src\ResourcePoolConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ResourcePool.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ResourcePool.cpp">
+    <ClCompile Include="..\src\ResourcePoolConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

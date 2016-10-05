@@ -1,7 +1,7 @@
 #ifndef _RESOURCEPOOLCONFIG_H
 #define _RESOURCEPOOLCONFIG_H
 
-namespace pool
+namespace common_pool
 {
     class ResourcePoolConfig
     {
@@ -16,7 +16,11 @@ namespace pool
         static const long MIN_SHRINK_INTERVAL;
         static const long MAX_RECLAIM_INTERVAL;
         static const long MIN_RECLAIM_INTERVAL;
-        
+        static const long MAX_SHRINK_WINDOW;
+        static const long MIN_SHRINK_WINDOW;
+        static const long MAX_EXPIRE_MILLIS;
+        static const long MIN_EXPIRE_MILLIS;
+
     public:
         ResourcePoolConfig();
         virtual ~ResourcePoolConfig();
@@ -36,9 +40,20 @@ namespace pool
         long getReclaimInterval();
         void setReclaimInterval(long reclaimInterval);
 
-        template<class T> T fixValue(T value, T minValue, T maxValue, T defaultValue=minValue)
+        long getShrinkWindow();
+        void setShrinkWindow(long shrinkWindow);
+
+        long getExpireMillis();
+        void setExpireMillis(long expireMillis);
+
+        template<class T> T fixValue(T value, T minValue, T maxValue)
         {
-            return T >= minValue && T <= max_value ? T : defaultValue;
+            return value >= minValue && value <= maxValue ? value : minValue;
+        };
+
+        template<class T> T fixValue(T value, T minValue, T maxValue, T defaultValue)
+        {
+            return value >= minValue && value <= maxValue ? value : defaultValue;
         };
                 
     private:
@@ -47,6 +62,8 @@ namespace pool
         long _refurbishInterval;
         long _shrinkInterval;
         long _reclaimInterval;
+        long _shrinkWindow;
+        long _expireMillis;
     };
 
 } //namespace pool
