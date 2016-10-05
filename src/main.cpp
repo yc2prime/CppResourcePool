@@ -18,6 +18,8 @@ public:
 int main()
 {
     cp::ResourcePoolConfig config;
+    config.setInitPoolSize(3);
+    config.setPoolSize(50);
     cp::ResourcePool<Resource> *pool = new cp::ResourcePool<Resource>(config);
 
 
