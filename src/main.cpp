@@ -1,14 +1,32 @@
 #include "ResourcePool.hpp"
 
 using namespace std;
+namespace cp = common_pool;
 
+class Resource
+{
+public:
+    int a;
+    int b;
+
+    int calc()
+    {
+        return a + b;
+    };
+};
 
 int main()
 {
-    common_pool::ResourcePoolConfig config;
-    common_pool::ResourcePool<int> *pool = new common_pool::ResourcePool<int>(config);
+    cp::ResourcePoolConfig config;
+    cp::ResourcePool<Resource> *pool = new cp::ResourcePool<Resource>(config);
 
 
+    cp::ResourceWrapper<Resource> *resource = pool->genResource();
+    if (resource != NULL)
+    {
+        resource->get()->calc();
+        delete resource;
+    }
 
     delete pool;
     return 0;

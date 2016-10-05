@@ -55,9 +55,10 @@ namespace common_pool
             return true;
         }
 
-        const T & get()
+        T *get()
         {
-            return *t;
+            updateLastestUseTime();
+            return t;
         };
 
         virtual void destory()
@@ -73,12 +74,10 @@ namespace common_pool
 
     private:
         T *t;
-        bool occupied;
         long expireMillis;
         boost::timer clock;
         double lastestUseTime;
         ResourcePool<T> *resourcePool;
-
     }; //class ResourceWrapper
 
     template<class T>
@@ -113,7 +112,6 @@ namespace common_pool
 
             //Create shrink thread
             boost::thread(&common_pool::ResourcePool<T>::shrink, this, config.getShrinkInterval());
-
         }
 
         ~ResourcePool()
